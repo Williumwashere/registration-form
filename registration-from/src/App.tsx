@@ -12,6 +12,9 @@ export default function App() {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    if (values.firstName && values.lastName && values.email) {
+      setValid(true);
+    }
     setSubmit(true);
   };
 
@@ -24,13 +27,13 @@ export default function App() {
   };
 
   const handleEmailInput = (event: any) => {
-    setValues({ ...values, lastName: event.target.value });
+    setValues({ ...values, email: event.target.value });
   };
 
   return (
     <div className="form-container">
       <form className="register-form" onSubmit={handleSubmit}>
-        {submit ? (
+        {submit && valid? (
           <div className="success-message">Congratulations!</div>
         ) : null}
         <input

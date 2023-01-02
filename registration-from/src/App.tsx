@@ -7,25 +7,32 @@ export default function App() {
     lastName: "",
     email: "",
   });
+  const [submit, setSubmit] = useState(false);
+  const [valid, setValid] = useState(false);
 
-  const[submit, setSubmit] = useState(false)
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    setSubmit(true);
+  };
 
-  const handleFirstNameInput = (event:any) => {
+  const handleFirstNameInput = (event: any) => {
     setValues({ ...values, firstName: event.target.value });
   };
 
-  const handleLastNameInput = (event:any) => {
+  const handleLastNameInput = (event: any) => {
     setValues({ ...values, lastName: event.target.value });
   };
 
-  const handleEmailInput = (event:any) => {
-    setValues({...values, lastName: event.target.value})
-  }
+  const handleEmailInput = (event: any) => {
+    setValues({ ...values, lastName: event.target.value });
+  };
 
   return (
     <div className="form-container">
-      <form className="register-form">
-        {submit ? <div className="success-message">Congratulations!</div> : null}
+      <form className="register-form" onSubmit={handleSubmit}>
+        {submit ? (
+          <div className="success-message">Congratulations!</div>
+        ) : null}
         <input
           value={values.firstName}
           onChange={handleFirstNameInput}
@@ -35,6 +42,9 @@ export default function App() {
           placeholder="First Name"
           name="firstName"
         />
+        {submit && !values.firstName ? (
+          <span>Must enter First Name</span>
+        ) : null}
         <input
           value={values.lastName}
           onChange={handleLastNameInput}
@@ -44,6 +54,7 @@ export default function App() {
           placeholder="Last Name"
           name="lastName"
         />
+        {submit && !values.lastName ? <span>Must enter Last Name</span> : null}
         <input
           value={values.email}
           onChange={handleEmailInput}
@@ -53,6 +64,7 @@ export default function App() {
           placeholder="Email"
           name="email"
         />
+        {submit && !values.email ? <span>Must enter Email</span> : null}
         <button className="form-field" type="submit">
           Register
         </button>
